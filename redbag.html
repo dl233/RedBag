@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>红包</title>
+<script type="text/javascript" src="redbag.js"></script>
+<style>
+	#totalerror,#numerror{
+		color: red;
+		display: none
+	}
+	.red{
+		color: red
+	}
+	</style>
+</head>
+
+<body>
+	<h1><span class="red">红包</span>演示</h1>
+	<div>
+		<h2>红包金额：</h2>
+		<input id="total" type="text" size="20"><p id="totalerror">红包金额不能小于等于0或空</p>
+		<h2>红包人数：</h2>
+		<input id="num" type="text" size="20"><p id="numerror">红包人数不能小于等于0或空</p>
+		<br>
+		<h2><button onClick="start()">发红包了！</button></h2>
+		<h2>
+			红包列表：<br>
+			<h3 class="red">tip：输入非数字或者红包金额小于可分配人数返回ERROR（每人最少0.01元）</h3><br>
+			<h3 id="list"></h3>
+		</h2>
+	</div>
+	
+	
+	<script>
+		function start(){
+			var total=document.getElementById("total").value
+			var num=document.getElementById("num").value
+			var sum=document.getElementById("list")
+			sum.innerHTML=""
+			if(total===""||total<=0){
+				document.getElementById("totalerror").style.display="inherit"
+				return false
+			}else{
+				document.getElementById("totalerror").style.display="none"
+			}
+			
+			if(num===""||num<=0){
+				document.getElementById("numerror").style.display="inherit"
+				return false
+			}else{
+				document.getElementById("numerror").style.display="none"
+			}
+			
+			var arr=new Array()
+			arr=redbag(parseInt(num),parseFloat(total))
+			for(var i=0;i<arr.length;i++){
+				sum.innerHTML+="恭喜第<span class='red'>"+(i+1)+"</span>位获得：<span class='red'>"+arr[i]+"</span><br>"
+			}
+			
+		}
+	</script>
+</body>
+</html>
